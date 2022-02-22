@@ -1,10 +1,7 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from io import StringIO, BytesIO
+#import matplotlib.pyplot as plt
+from io import BytesIO
 from PIL import Image
-import albumentations
 from torchvision import transforms
 from model import AestheticModel
 from utils import sigmoid
