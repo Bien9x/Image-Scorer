@@ -3,6 +3,7 @@ pandas
 matplotlib
 torch
 torchvision
+tensorboard
 streamlit
 timm
 psutil
