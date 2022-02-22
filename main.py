@@ -1,14 +1,12 @@
 import streamlit as st
-#import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from io import BytesIO
 from PIL import Image
 from torchvision import transforms
 from model import AestheticModel
 from utils import sigmoid
-
+import torch
 import config
-
-model = AestheticModel()
 
 transforms = transforms.Compose([
     transforms.Resize((config.IMG_SIZE, config.IMG_SIZE)),
@@ -18,17 +16,21 @@ transforms = transforms.Compose([
 
 @st.cache
 def load_model(path):
-    model.load(path, device="cpu")
-    model.eval()
+    with torch.no_grad():
+        model = AestheticModel()
+        model.load(path, device="cpu")
+        model.eval()
+        return model
 
 
 with st.spinner("Loading model..."):
-    load_model("cp/basic_swin_small.bin")
+    model = load_model("cp/basic_swin_small.bin")
 
 
 def predict(img):
-    img = transforms(img).unsqueeze(0)
-    logit = model(img)[0].item()
+    with torch.no_grad():
+        img = transforms(img).unsqueeze(0)
+        logit = model(img)[0].item()
     return sigmoid(logit)
 
 
