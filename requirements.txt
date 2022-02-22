@@ -8,4 +8,3 @@ streamlit
 timm
 psutil
 tez
-git+https://github.com/lessw2020/Ranger21.git

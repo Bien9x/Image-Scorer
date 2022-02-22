@@ -18,13 +18,13 @@ transforms = transforms.Compose([
 def load_model(path):
     with torch.no_grad():
         model = AestheticModel()
-        model.load(path, device="cpu")
+        model.load(path, device="cpu",weights_only=True)
         model.eval()
         return model
 
 
 with st.spinner("Loading model..."):
-    model = load_model("cp/basic_swin_small.bin")
+    model = load_model("cp/model_weights.bin")
 
 
 def predict(img):
